@@ -27,6 +27,8 @@ import com.streamsets.pipeline.api.StageException;
 import com.streamsets.pipeline.api.base.BaseTarget;
 import com.streamsets.pipeline.api.impl.Utils;
 import com.streamsets.pipeline.lib.generator.DataGenerator;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +67,7 @@ public class AmazonS3Target extends BaseTarget {
   @Override
   public void write(Batch batch) throws StageException {
     String keyPrefix = s3TargetConfigBean.s3Config.commonPrefix + s3TargetConfigBean.fileNamePrefix + "-" +
-      System.currentTimeMillis() + "-";
+            new DateTime().withZone(DateTimeZone.UTC).toString() + "-";
     Iterator<Record> records = batch.getRecords();
     int writtenRecordCount = 0;
     DataGenerator generator;
