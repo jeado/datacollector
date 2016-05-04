@@ -67,7 +67,7 @@ public class AmazonS3Target extends BaseTarget {
   @Override
   public void write(Batch batch) throws StageException {
     String keyPrefix = s3TargetConfigBean.s3Config.commonPrefix + s3TargetConfigBean.fileNamePrefix + "-" +
-            new DateTime().withZone(DateTimeZone.UTC).toString() + "-";
+            new DateTime().withZone(DateTimeZone.UTC).toString("yyyyMMddHH") + "-";
     Iterator<Record> records = batch.getRecords();
     int writtenRecordCount = 0;
     DataGenerator generator;
